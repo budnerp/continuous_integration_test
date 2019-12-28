@@ -1,0 +1,13 @@
+{
+    "name": "budnerp/phpmd-php-cs-parser",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Piotr Budner",
+            "email": "piotr.budner@gmail.com"
+        }
+    ],
+    "require": {
+        "phpmd/phpmd": "^2.8"
+    }
+}
