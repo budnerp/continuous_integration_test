@@ -3,8 +3,7 @@
 class Planet {
     protected $gravitation;
 
-    public function __construct($gravitation)
-    {
+    public function __construct($gravitation) {
         $this->gravitation = $gravitation;
     }
 
