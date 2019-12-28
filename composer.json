@@ -1,6 +1,6 @@
 {
     "name": "budnerp/phpmd-php-cs-parser",
-    "license": "MIT",
+    "license": "mit",
     "authors": [
         {
             "name": "Piotr Budner",
