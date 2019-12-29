@@ -5,16 +5,21 @@
 #GITHUB_SHA=""
 #PR_BASE_SHA="f8f67e442eff54e6ef434f447c61764fc9955f0b"
 #PR_SHA="3acdffd24496469db03676835273d012be0e72e1"
-PR_ADD_LABEL="https://api.github.com/repos/budnerp/continuous_integration_test/issues/1/labels"
+#PR_LABEL_HREF="https://api.github.com/repos/budnerp/continuous_integration_test/issues/1/labels"
 
-    curl --silent --output /dev/null POST "$PR_ADD_LABEL" \
+remove_label() {
+    curl --silent --output /dev/null DELETE "$PR_ABEL_HREF/$1" \
+    --header "Content-Type: application/json" \
+    --header "Authorization: Bearer $TOKEN"
+}
+
+
+add_label() {
+    curl --silent --output /dev/null POST "$PR_LABEL_HREF" \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer $TOKEN" \
-    --data-binary "{ \"labels\": [\"invalid\"] }"
-
-
-
-exit 0
+    --data-binary "{ \"labels\": [\"$1\"] }"
+}
 
 add_comment() {
     curl --silent --output /dev/null POST "$PR_COMMENT_HREF" \
@@ -91,11 +96,15 @@ then
 
     if [ -f "phpmd_report.txt" ] || [ -f "phpcs_report.txt" ]; then
         exitCode=1
+	add_label "invalid"
 
-	# send a message on Teams that PR needs Work
+ 	# send a message on Teams that PR needs Work
+    else
+	remove_label "invalid"
+	add_label "ready for review"
     fi
 else
-	echo 'No files for analysis this time'
+    echo 'No files for analysis this time'
 fi
 
 exit $exitCode
