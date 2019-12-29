@@ -1,13 +1,18 @@
 #!/usr/bin/env bash
 
+#PR_COMMENT_HREF="https://api.github.com/repos/budnerp/continuous_integration_test/issues/1/comments"
+#TOKEN="38092fba2f8d6c65e4d36448c75896c807b2cd5c"
+#GITHUB_SHA=""
+#PR_BASE_SHA="f8f67e442eff54e6ef434f447c61764fc9955f0b"
+#PR_SHA="cf3f2058f5ac7fe6b1ca879d9e7a9506d38970c3"
 
 add_comment() {
     curl --silent --output /dev/null POST "$PR_COMMENT_HREF" \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer $TOKEN" \
-    --data-raw "{
-        \"body\": \"$1\"
-    }"
+    --data-binary "{ \"body\": \"$1\" }"
+
+    # echo "{ \"body\": \"$1\" }"
 }
 
 arrayJoin() {
@@ -42,12 +47,14 @@ echo "Comma separated: $filesCommaSeparated"
 filesCount=${#modifiedFiles[@]}
 echo "--- Files to analyze: $filesCount ---"
 
+exitCode=0
+
 if [ $filesCount -gt 0 ]
 then
     echo "--- PHPMD execution start ---"
 
     echo "Analyze: $filesCommaSeparated"
-    php vendor/bin/phpmd $filesCommaSeparated text \
+    php vendor/bin/phpmd $filesCommaSeparated ansi \
 	vendor/phpmd/phpmd/src/main/resources/rulesets/cleancode.xml, \
 	vendor/phpmd/phpmd/src/main/resources/rulesets/codesize.xml, \
 	vendor/phpmd/phpmd/src/main/resources/rulesets/controversial.xml, \
@@ -55,6 +62,9 @@ then
 	vendor/phpmd/phpmd/src/main/resources/rulesets/naming.xml, \
 	vendor/phpmd/phpmd/src/main/resources/rulesets/unusedcode.xml \
 	--reportfile phpmd_report.txt
+
+    add_comment "\`\`\`$(cat -v phpmd_report.txt | sed -zr "s/\"/'/g; s/\^[[[0-9]*m//g; s/\n/\\\\n/g")\`\`\`"
+
     echo "--- PHPMD end ---"
 
     echo "--- PHPCS execution start ---"
@@ -64,27 +74,16 @@ then
 	    --exclude=Ecg.PHP.PrivateClassMember \
 	    --ignore=*/tests/* \
 	    --report=full $files > phpcs_report.txt || true
+    
+    add_comment "\`\`\`$(cat phpcs_report.txt | sed -z "s/\"/'/g; s/\n/\\\\n/g")\`\`\`"
+    
     echo "--- PHPCS end ---"
 
-
-#    add_comment "test"
-
-    curl --silent --output /dev/null POST "$PR_COMMENT_HREF" \
-	    --header "Content-Type: application/json" \
-	    --header "Authorization: Bearer $TOKEN" \
-	    --data-raw "{ \"body\": \"$(cat phpcs_report.txt | sed "s/\"/'/g")\" }"
-
-
-
-    # ${PHPPATH} html/vendor/bin/phpcs --extensions=php --standard=Magento2 --exclude=Ecg.PHP.PrivateClassMember --ignore=*/tests/* --report=full $FILES || true
-
-    #    cat phpcs.json
-#
-#    if [ -f "phpcs.json" ]; then
-#        add_comment "\"$(cat phpcs.json | sed "s/\"/'/g")\""
-#    fi
+    if [ -f "phpmd_report.txt" ] || [ -f "phpcs_report.txt" ]; then
+        exitCode=1
+    fi
 else
 	echo 'No files for analysis this time'
 fi
 
-exit 0
+exit $exidCode

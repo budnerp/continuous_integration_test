@@ -1,0 +1,5 @@
+
+FILE: /home/vagrant/python/phpmd-phpcs-parser/code/planet-copy.php
+
+Time: 224ms; Memory: 4MB
+
