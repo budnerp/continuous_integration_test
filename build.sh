@@ -81,6 +81,8 @@ then
 
     if [ -f "phpmd_report.txt" ] || [ -f "phpcs_report.txt" ]; then
         exitCode=1
+
+	# send a message on Teams that PR needs Work
     fi
 else
 	echo 'No files for analysis this time'
