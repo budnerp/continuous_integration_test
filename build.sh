@@ -26,7 +26,7 @@ echo "GITHUB_SHA: $GITHUB_SHA"
 echo "PR_SHA: $PR_SHA"
 
 # get an array of modified files
-files=$(git diff --name-only --diff-filter=MA $GITHUB_SHA...$PR_SHA | grep \.php || true)
+files=$(git diff --name-only --diff-filter=MA $PR_BASE_SHA...$PR_SHA | grep \.php || true)
 echo "Raw: $files"
 
 # convert file list to array
