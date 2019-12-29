@@ -1,5 +1,8 @@
 <?php
 
+/*
+ * Comment
+ */
 class Planet {
     protected $gravitation;
 

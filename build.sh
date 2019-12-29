@@ -23,6 +23,7 @@ echo "--- Static code analysis ---"
 echo "PR_COMMENT_HREF: $PR_COMMENT_HREF"
 echo "TOKEN: $TOKEN"
 echo "GITHUB_SHA: $GITHUB_SHA"
+echo "PR_BASE_SHA: $PR_BASE_SHA"
 echo "PR_SHA: $PR_SHA"
 
 # get an array of modified files
@@ -66,7 +67,14 @@ then
     echo "--- PHPCS end ---"
 
 
-    add_comment "test"
+#    add_comment "test"
+
+    curl --silent --output /dev/null POST "$PR_COMMENT_HREF" \
+	    --header "Content-Type: application/json" \
+	    --header "Authorization: Bearer $TOKEN" \
+	    --data-raw "{ \"body\": \"$(cat phpcs_report.txt | sed "s/\"/'/g")\" }"
+
+
 
     # ${PHPPATH} html/vendor/bin/phpcs --extensions=php --standard=Magento2 --exclude=Ecg.PHP.PrivateClassMember --ignore=*/tests/* --report=full $FILES || true
 
