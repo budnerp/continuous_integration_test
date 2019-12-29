@@ -49,5 +49,5 @@ FOUND 3 ERRORS AND 11 WARNINGS AFFECTING 8 LINES
 PHPCBF CAN FIX THE 7 MARKED SNIFF VIOLATIONS AUTOMATICALLY
 --------------------------------------------------------------------------------------------------------------------------------------
 
-Time: 236ms; Memory: 4MB
+Time: 226ms; Memory: 4MB
 

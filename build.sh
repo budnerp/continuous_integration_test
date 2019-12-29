@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 
 
+add_comment() {
+    curl --silent --output /dev/null POST "$PR_COMMENT_HREF" \
+    --header "Content-Type: application/json" \
+    --header "Authorization: Bearer $TOKEN" \
+    --data-raw "{
+        \"body\": \"$1\"
+    }"
+}
+
 arrayJoin() {
   (($#)) || return 1 # At least delimiter required
   local -- delim="$1" str IFS=
@@ -10,6 +19,9 @@ arrayJoin() {
 }
 
 echo "--- Static code analysis ---"
+
+echo "PR_COMMENT_HREF: $PR_COMMENT_HREF"
+echo "TOKEN: $TOKEN"
 
 # get an array of modified files
 files=$(git diff --name-only --diff-filter=MA master...dafe8bb | grep \.php || true)
@@ -50,6 +62,9 @@ then
 	    --ignore=*/tests/* \
 	    --report=full $files > phpcs_report.txt || true
     echo "--- PHPCS end ---"
+
+
+    add_comment "test"
 
     # ${PHPPATH} html/vendor/bin/phpcs --extensions=php --standard=Magento2 --exclude=Ecg.PHP.PrivateClassMember --ignore=*/tests/* --report=full $FILES || true
 
