@@ -22,10 +22,10 @@ jobs:
           PR_COMMENT_HREF: ${{ github.event.pull_request._links.comments.href }}
         run: bash build.sh
 
-#      - name: Dump GitHub context
-#        env:
-#          GITHUB_CONTEXT: ${{ toJson(github) }}
-#        run: echo "$GITHUB_CONTEXT"
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
 #      - name: Dump job context
 #        env:
 #          JOB_CONTEXT: ${{ toJson(job) }}
