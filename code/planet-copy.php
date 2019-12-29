@@ -18,7 +18,8 @@ class Planet {
 }
 
 $earh = new Planet(9.81);
-if ( is_object($earh) ) {
+if ( is_object($earh) ) 
+{
     echo $earh->get_gravity_force(100);
 } else {
     echo "No planet found";
