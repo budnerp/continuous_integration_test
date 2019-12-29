@@ -24,7 +24,7 @@ echo "PR_COMMENT_HREF: $PR_COMMENT_HREF"
 echo "TOKEN: $TOKEN"
 
 # get an array of modified files
-files=$(git diff --name-only --diff-filter=MA master...$GITHUB_SHA | grep \.php || true)
+files=$(git diff --name-only --diff-filter=MA master...$PR_SHA | grep \.php || true)
 #echo "Raw: $files"
 
 # convert file list to array

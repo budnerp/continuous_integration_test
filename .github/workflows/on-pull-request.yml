@@ -20,6 +20,7 @@ jobs:
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_COMMENT_HREF: ${{ github.event.pull_request._links.comments.href }}
+          PR_SHA: ${{ github.event.after }}
         run: bash build.sh
 
       - name: Dump GitHub context
