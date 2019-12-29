@@ -22,18 +22,20 @@ echo "--- Static code analysis ---"
 
 echo "PR_COMMENT_HREF: $PR_COMMENT_HREF"
 echo "TOKEN: $TOKEN"
+echo "GITHUB_SHA: $GITHUB_SHA"
+echo "PR_SHA: $PR_SHA"
 
 # get an array of modified files
 files=$(git diff --name-only --diff-filter=MA $GITHUB_SHA...$PR_SHA | grep \.php || true)
-#echo "Raw: $files"
+echo "Raw: $files"
 
 # convert file list to array
 declare -a modifiedFiles=($files)
-#echo "Array: $modifiedFiles"
+echo "Array: $modifiedFiles"
 
 # convert array to comma separated string
 filesCommaSeparated=$(arrayJoin ',' "${modifiedFiles[@]}")
-#echo "Comma separated: $filesCommaSeparated"
+echo "Comma separated: $filesCommaSeparated"
 
 # count the array
 filesCount=${#modifiedFiles[@]}
