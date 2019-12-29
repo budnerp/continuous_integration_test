@@ -5,12 +5,12 @@
 #GITHUB_SHA=""
 #PR_BASE_SHA="f8f67e442eff54e6ef434f447c61764fc9955f0b"
 #PR_SHA="3acdffd24496469db03676835273d012be0e72e1"
-PR_CREATE_STATUS="https://api.github.com/repos/budnerp/continuous_integration_test/statuses/$PR_SHA"
+PR_ADD_LABEL="https://api.github.com/repos/budnerp/continuous_integration_test/issues/1/labels"
 
-    curl --silent --output /dev/null POST "$PR_CREATE_STATUS" \
+    curl --silent --output /dev/null POST "$PR_ADD_LABEL" \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer $TOKEN" \
-    --data-binary "{ \"state\": \"pending\", \"description\": \"Static Code Analysis\", \"context\": \"PR CI\" }"
+    --data-binary "{ \"labels\": [\"invalid\" }"
 
 
 
