@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+exit 1
+
 #PR_COMMENT_HREF="https://api.github.com/repos/budnerp/continuous_integration_test/issues/1/comments"
 #TOKEN="38092fba2f8d6c65e4d36448c75896c807b2cd5c"
 #GITHUB_SHA=""
