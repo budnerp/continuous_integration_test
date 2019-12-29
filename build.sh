@@ -10,7 +10,7 @@ PR_ADD_LABEL="https://api.github.com/repos/budnerp/continuous_integration_test/i
     curl --silent --output /dev/null POST "$PR_ADD_LABEL" \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer $TOKEN" \
-    --data-binary "{ \"labels\": [\"invalid\" }"
+    --data-binary "{ \"labels\": [\"invalid\"] }"
 
 
 
