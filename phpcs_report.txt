@@ -1,0 +1,53 @@
+
+FILE: /home/vagrant/python/phpmd-phpcs-parser/code/planet-copy.php
+--------------------------------------------------------------------------------------------------------------------------------------
+FOUND 3 ERRORS AND 11 WARNINGS AFFECTING 9 LINES
+--------------------------------------------------------------------------------------------------------------------------------------
+  1 | WARNING | [ ] A file should declare new symbols (classes, functions, constants, etc.) and cause no other side effects, or it
+    |         |     should execute logic with side effects, but should not do both. The first symbol is defined on line 3 and the
+    |         |     first side effect is on line 20.
+  3 | ERROR   | [ ] Each class must be in a namespace of at least one level (a top-level vendor name)
+  3 | WARNING | [x] Opening brace of a class must be on the line after the definition
+  6 | WARNING | [x] Opening brace should be on a new line
+ 10 | WARNING | [ ] Method name "Planet::get_gravity_force" is not in camel caps format
+ 10 | WARNING | [x] Opening brace should be on a new line
+ 12 | WARNING | [x] Expected 0 spaces after opening bracket; 1 found
+ 12 | WARNING | [ ] The use of function is_null() is discouraged; use strict comparison "=== null"() instead
+ 12 | WARNING | [x] Expected 0 spaces before closing bracket; 1 found
+ 21 | WARNING | [x] Expected 0 spaces after opening bracket; 1 found
+ 21 | WARNING | [x] Expected 0 spaces before closing bracket; 1 found
+ 22 | ERROR   | [ ] Use of echo language construct is discouraged.
+ 24 | ERROR   | [ ] Use of echo language construct is discouraged.
+ 25 | WARNING | [x] Expected 1 blank line at end of file; 2 found
+--------------------------------------------------------------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 8 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+--------------------------------------------------------------------------------------------------------------------------------------
+
+
+FILE: /home/vagrant/python/phpmd-phpcs-parser/code/planet.php
+--------------------------------------------------------------------------------------------------------------------------------------
+FOUND 3 ERRORS AND 11 WARNINGS AFFECTING 8 LINES
+--------------------------------------------------------------------------------------------------------------------------------------
+  1 | WARNING | [ ] A file should declare new symbols (classes, functions, constants, etc.) and cause no other side effects, or it
+    |         |     should execute logic with side effects, but should not do both. The first symbol is defined on line 5 and the
+    |         |     first side effect is on line 23.
+  5 | WARNING | [ ] Duplicate class name "Planet" found; first defined in
+    |         |     /home/vagrant/python/phpmd-phpcs-parser/code/planet-copy.php on line 3
+  5 | ERROR   | [ ] Each class must be in a namespace of at least one level (a top-level vendor name)
+  5 | WARNING | [x] Opening brace of a class must be on the line after the definition
+ 13 | WARNING | [ ] Method name "Planet::get_gravity_force" is not in camel caps format
+ 13 | WARNING | [x] Opening brace should be on a new line
+ 15 | WARNING | [x] Expected 0 spaces after opening bracket; 1 found
+ 15 | WARNING | [ ] The use of function is_null() is discouraged; use strict comparison "=== null"() instead
+ 15 | WARNING | [x] Expected 0 spaces before closing bracket; 1 found
+ 24 | WARNING | [x] Expected 0 spaces after opening bracket; 1 found
+ 24 | WARNING | [x] Expected 0 spaces before closing bracket; 1 found
+ 25 | ERROR   | [ ] Use of echo language construct is discouraged.
+ 27 | ERROR   | [ ] Use of echo language construct is discouraged.
+ 28 | WARNING | [x] Expected 1 blank line at end of file; 2 found
+--------------------------------------------------------------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 7 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+--------------------------------------------------------------------------------------------------------------------------------------
+
+Time: 236ms; Memory: 4MB
+

@@ -8,6 +8,8 @@
         }
     ],
     "require": {
-        "phpmd/phpmd": "^2.8"
+        "phpmd/phpmd": "^2.8",
+        "squizlabs/php_codesniffer": "*",
+        "magento/magento-coding-standard": "^5.0"
     }
 }

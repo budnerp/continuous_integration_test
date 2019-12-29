@@ -1,0 +1,2 @@
+/home/vagrant/python/phpmd-phpcs-parser/code/planet-copy.php:14	The method get_gravity_force uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.
+/home/vagrant/python/phpmd-phpcs-parser/code/planet.php:17	The method get_gravity_force uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.
