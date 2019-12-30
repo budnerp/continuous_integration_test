@@ -1,18 +1,17 @@
 #!/usr/bin/env bash
 
-#PR_COMMENT_HREF="https://api.github.com/repos/budnerp/continuous_integration_test/issues/1/comments"
-#TOKEN="38092fba2f8d6c65e4d36448c75896c807b2cd5c"
+PR_COMMENT_HREF="https://api.github.com/repos/budnerp/continuous_integration_test/issues/1/comments"
+TOKEN="38092fba2f8d6c65e4d36448c75896c807b2cd5c"
 #GITHUB_SHA=""
-#PR_BASE_SHA="f8f67e442eff54e6ef434f447c61764fc9955f0b"
-#PR_SHA="3acdffd24496469db03676835273d012be0e72e1"
-#PR_LABEL_HREF="https://api.github.com/repos/budnerp/continuous_integration_test/issues/1/labels"
+PR_BASE_SHA="f8f67e442eff54e6ef434f447c61764fc9955f0b"
+PR_SHA="3acdffd24496469db03676835273d012be0e72e1"
+PR_LABEL_HREF="https://api.github.com/repos/budnerp/continuous_integration_test/issues/1/labels"
 
 remove_label() {
     curl --silent --output /dev/null DELETE "$PR_ABEL_HREF/$1" \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer $TOKEN"
 }
-
 
 add_label() {
     curl --silent --output /dev/null POST "$PR_LABEL_HREF" \
@@ -41,10 +40,10 @@ arrayJoin() {
 echo "--- Static code analysis ---"
 
 echo "PR_COMMENT_HREF: $PR_COMMENT_HREF"
-echo "TOKEN: $TOKEN"
 echo "GITHUB_SHA: $GITHUB_SHA"
 echo "PR_BASE_SHA: $PR_BASE_SHA"
 echo "PR_SHA: $PR_SHA"
+echo "PR_LABEL_HREF: $PR_LABEL_HREF"
 
 # get an array of modified files
 files=$(git diff --name-only --diff-filter=MA $PR_BASE_SHA...$PR_SHA | grep \.php || true)
@@ -78,7 +77,10 @@ then
 	vendor/phpmd/phpmd/src/main/resources/rulesets/unusedcode.xml \
 	--reportfile phpmd_report.txt
 
-    add_comment "\`\`\`$(cat -v phpmd_report.txt | sed -zr "s/\"/'/g; s/\^[[[0-9]*m//g; s/\n/\\\\n/g")\`\`\`"
+    if [ -f "phpmd_report.txt" ]; then
+        add_comment "\`\`\`$(cat -v phpmd_report.txt | sed -zr "s/\"/'/g; s/\^[[[0-9]*m//g; s/\n/\\\\n/g")\`\`\`"
+        exitCode=1
+    fi
 
     echo "--- PHPMD end ---"
 
@@ -90,11 +92,14 @@ then
 	    --ignore=*/tests/* \
 	    --report=full $files > phpcs_report.txt || true
     
-    add_comment "\`\`\`$(cat phpcs_report.txt | sed -z "s/\"/'/g; s/\n/\\\\n/g")\`\`\`"
-    
+    if [ -f "phpcs_report.txt" ]; then
+        add_comment "\`\`\`$(cat phpcs_report.txt | sed -z "s/\"/'/g; s/\n/\\\\n/g")\`\`\`"
+        exitCode=1
+    fi
+
     echo "--- PHPCS end ---"
 
-    if [ -f "phpmd_report.txt" ] || [ -f "phpcs_report.txt" ]; then
+    if [ $exitCode -ne 0 ]; then
         exitCode=1
 	add_label "invalid"
 
