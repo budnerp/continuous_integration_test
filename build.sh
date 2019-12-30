@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-PR_COMMENT_HREF="https://api.github.com/repos/budnerp/continuous_integration_test/issues/1/comments"
-TOKEN="38092fba2f8d6c65e4d36448c75896c807b2cd5c"
+#PR_COMMENT_HREF="https://api.github.com/repos/budnerp/continuous_integration_test/issues/1/comments"
+#TOKEN="38092fba2f8d6c65e4d36448c75896c807b2cd5c"
 #GITHUB_SHA=""
-PR_BASE_SHA="f8f67e442eff54e6ef434f447c61764fc9955f0b"
-PR_SHA="3acdffd24496469db03676835273d012be0e72e1"
-PR_LABEL_HREF="https://api.github.com/repos/budnerp/continuous_integration_test/issues/1/labels"
+#PR_BASE_SHA="f8f67e442eff54e6ef434f447c61764fc9955f0b"
+#PR_SHA="3acdffd24496469db03676835273d012be0e72e1"
+#PR_LABEL_HREF="https://api.github.com/repos/budnerp/continuous_integration_test/issues/1/labels"
 
 remove_label() {
     curl --silent --output /dev/null DELETE "$PR_ABEL_HREF/$1" \
