@@ -13,7 +13,7 @@ echo "PR_SHA: $PR_SHA"
 echo "PR_ISSUE_HREF: $PR_ISSUE_HREF"
 
 remove_label() {
-    PR_DELETE_LABEL_HREF="$PR_ISSUE_HREF/labels/$i"
+    PR_DELETE_LABEL_HREF="$PR_ISSUE_HREF/labels/$1"
     echo "PR_DELETE_LABEL_HREF: $PR_DELETE_LABEL_HREF"
     curl --silent --output /dev/null DELETE "$PR_DELETE_LABEL_HREF" \
     --header "Content-Type: application/json" \
@@ -23,7 +23,7 @@ remove_label() {
 add_label() {
     PR_ADD_LABEL_HREF="$PR_ISSUE_HREF/labels"
     echo "PR_ADD_LABEL_HREF: $PR_ADD_LABEL_HREF"
-    curl --silent --output /dev/null POST "$PR_ADD_LABEL_HREF/labels" \
+    curl --silent --output /dev/null POST "$PR_ADD_LABEL_HREF" \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer $TOKEN" \
     --data-binary "{ \"labels\": [\"$1\"] }"
