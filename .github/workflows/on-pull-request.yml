@@ -10,8 +10,13 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-        #      - name: Validate composer.json and composer.lock
-        #        run: composer validate
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+#      - name: Validate composer.json and composer.lock
+#        run: composer validate
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest --ignore-platform-reqs
@@ -25,10 +30,6 @@ jobs:
           PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: bash build.sh
 
-        #      - name: Dump GitHub context
-        #env:
-        #  GITHUB_CONTEXT: ${{ toJson(github) }}
-        #run: echo "$GITHUB_CONTEXT"
 #      - name: Dump job context
 #        env:
 #          JOB_CONTEXT: ${{ toJson(job) }}
