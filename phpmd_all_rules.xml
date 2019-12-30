@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<pmd version="@project.version@" timestamp="2019-12-28T16:05:27+00:00">
-  <file name="/home/vagrant/python/phpmd-phpcs-parser/code/planet.php">
-    <violation beginline="15" endline="17" rule="ElseExpression" ruleset="Clean Code Rules" externalInfoUrl="https://phpmd.org/rules/cleancode.html#elseexpression" priority="1">
-      The method get_gravity_force uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.
-    </violation>
-  </file>
-</pmd>

@@ -1,5 +1,8 @@
 <?php
 
+/*
+ * Comment
+ *
 class Planet {
     protected $gravitation;
 
@@ -23,5 +26,4 @@ if ( is_object($earh) ) {
     echo $earh->get_gravity_force(100);
 } else {
     echo "No planet found";
-}
-
+}*/
