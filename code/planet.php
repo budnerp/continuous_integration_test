@@ -2,7 +2,7 @@
 
 /*
  * Comment
- */
+ *
 class Planet {
     protected $gravitation;
 
@@ -27,4 +27,4 @@ if ( is_object($earh) ) {
 } else {
     echo "No planet found";
 }
- 
+ */ 
