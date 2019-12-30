@@ -2,9 +2,8 @@
 
 #PR_COMMENT_HREF="https://api.github.com/repos/budnerp/continuous_integration_test/issues/1/comments"
 #TOKEN="38092fba2f8d6c65e4d36448c75896c807b2cd5c"
-#GITHUB_SHA=""
 #PR_BASE_SHA="f8f67e442eff54e6ef434f447c61764fc9955f0b"
-#PR_SHA="3acdffd24496469db03676835273d012be0e72e1"
+#PR_SHA="d4ddfa4337e65380f5ee0792d854101a6e615351"
 #PR_LABEL_HREF="https://api.github.com/repos/budnerp/continuous_integration_test/issues/1/labels"
 
 remove_label() {
@@ -77,7 +76,7 @@ then
 	vendor/phpmd/phpmd/src/main/resources/rulesets/unusedcode.xml \
 	--reportfile phpmd_report.txt
 
-    if [ -f "phpmd_report.txt" ]; then
+    if [ -f "phpmd_report.txt" ] && [ $(cat phpmd_report.txt | grep "No mess detected" | wc -l) -eq 0 ]; then
         add_comment "\`\`\`$(cat -v phpmd_report.txt | sed -zr "s/\"/'/g; s/\^[[[0-9]*m//g; s/\n/\\\\n/g")\`\`\`"
         exitCode=1
     fi
@@ -92,7 +91,7 @@ then
 	    --ignore=*/tests/* \
 	    --report=full $files > phpcs_report.txt || true
     
-    if [ -f "phpcs_report.txt" ]; then
+    if [ -f "phpcs_report.txt" ] && [ -s "phpcs_report.txt" ]; then
         add_comment "\`\`\`$(cat phpcs_report.txt | sed -z "s/\"/'/g; s/\n/\\\\n/g")\`\`\`"
         exitCode=1
     fi
@@ -100,11 +99,12 @@ then
     echo "--- PHPCS end ---"
 
     if [ $exitCode -ne 0 ]; then
-        exitCode=1
+	echo "--- Mark pull request as Invalid"
 	add_label "invalid"
 
  	# send a message on Teams that PR needs Work
     else
+	echo "--- Mark pull request as Ready For Review"
 	remove_label "invalid"
 	add_label "ready for review"
     fi
