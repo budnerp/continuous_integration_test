@@ -7,13 +7,13 @@
 #PR_LABEL_HREF="https://api.github.com/repos/budnerp/continuous_integration_test/issues/1/labels"
 
 remove_label() {
-    curl --silent --output /dev/null DELETE "$PR_ABEL_HREF/$1" \
+    curl -X --output /dev/null DELETE "$PR_ABEL_HREF/$1" \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer $TOKEN"
 }
 
 add_label() {
-    curl --silent --output /dev/null POST "$PR_LABEL_HREF" \
+    curl -X --output /dev/null POST "$PR_LABEL_HREF" \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer $TOKEN" \
     --data-binary "{ \"labels\": [\"$1\"] }"
@@ -99,16 +99,17 @@ then
     echo "--- PHPCS end ---"
 
     if [ $exitCode -ne 0 ]; then
+	remove_label "ready for review"
+
 	echo "--- Mark pull request as Invalid"
 	add_label "invalid"
 
  	# send a message on Teams that PR needs Work
     else
-	echo "Remove Invalid label"
 	remove_label "invalid"
 	
-	#echo "--- Mark pull request as Ready For Review"
-	#add_label "ready for review"
+	echo "--- Mark pull request as Ready For Review"
+	add_label "ready for review"
     fi
 else
     echo 'No files for analysis this time'
