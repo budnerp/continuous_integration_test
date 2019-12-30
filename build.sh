@@ -10,10 +10,10 @@ echo "PR_COMMENT_HREF: $PR_COMMENT_HREF"
 echo "GITHUB_SHA: $GITHUB_SHA"
 echo "PR_BASE_SHA: $PR_BASE_SHA"
 echo "PR_SHA: $PR_SHA"
-echo "PR_ISSUE_HREF: $PR_LABEL_HREF"
+echo "PR_ISSUE_HREF: $PR_ISSUE_HREF"
 
 remove_label() {
-    curl -X --output /dev/null DELETE "$PR_ISSUE_HREF/labels/$1" \
+    curl -X --output /dev/null DELETE "$PR_ISSUE_HREF//labels//$1" \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer $TOKEN"
 }
