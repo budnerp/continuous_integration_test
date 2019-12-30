@@ -42,10 +42,11 @@ add_label() {
 }
 
 add_comment() {
-    curl --silent --output /dev/null POST "$PR_COMMENT_HREF" \
+    curl -X POST \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer $TOKEN" \
-    --data-binary "{ \"body\": \"$1\" }"
+    --data-binary "{ \"body\": \"$1\" }" \
+    $PR_COMMENT_HREF
 
     # echo "{ \"body\": \"$1\" }"
 }
