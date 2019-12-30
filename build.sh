@@ -4,16 +4,16 @@
 #TOKEN="$1"
 #PR_BASE_SHA="f8f67e442eff54e6ef434f447c61764fc9955f0b"
 #PR_SHA="d4ddfa4337e65380f5ee0792d854101a6e615351"
-#PR_LABEL_HREF="https://api.github.com/repos/budnerp/continuous_integration_test/issues/1/labels"
+#PR_ISSUE_HREF="https://api.github.com/repos/budnerp/continuous_integration_test/issues/1"
 
 remove_label() {
-    curl -X --output /dev/null DELETE "$PR_ABEL_HREF/$1" \
+    curl -X --output /dev/null DELETE "$PR_ISSUE_HREF/labels/$1" \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer $TOKEN"
 }
 
 add_label() {
-    curl -X --output /dev/null POST "$PR_LABEL_HREF" \
+    curl -X --output /dev/null POST "$PR_ISSUE_HREF/labels" \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer $TOKEN" \
     --data-binary "{ \"labels\": [\"$1\"] }"

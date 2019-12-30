@@ -20,7 +20,7 @@ jobs:
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_COMMENT_HREF: ${{ github.event.pull_request._links.comments.href }}
-          PR_LABEL_HREF: "${{ github.event.pull_request._links.issue.href }}/labels"
+          PR_ISSUE_HREF: ${{ github.event.pull_request._links.issue.href }}
           PR_SHA: ${{ github.event.after }}
           PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: bash build.sh
