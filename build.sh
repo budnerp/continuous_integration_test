@@ -42,7 +42,7 @@ echo "PR_COMMENT_HREF: $PR_COMMENT_HREF"
 echo "GITHUB_SHA: $GITHUB_SHA"
 echo "PR_BASE_SHA: $PR_BASE_SHA"
 echo "PR_SHA: $PR_SHA"
-echo "PR_LABEL_HREF: $PR_LABEL_HREF"
+echo "PR_ISSUE_HREF: $PR_LABEL_HREF"
 
 # get an array of modified files
 files=$(git diff --name-only --diff-filter=MA $PR_BASE_SHA...$PR_SHA | grep \.php || true)
