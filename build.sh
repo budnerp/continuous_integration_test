@@ -13,13 +13,17 @@ echo "PR_SHA: $PR_SHA"
 echo "PR_ISSUE_HREF: $PR_ISSUE_HREF"
 
 remove_label() {
-    curl -X --output /dev/null DELETE "$PR_ISSUE_HREF//labels//$1" \
+    PR_DELETE_LABEL_HREF="$PR_ISSUE_HREF/labels/$i"
+    echo "PR_DELETE_LABEL_HREF: $PR_DELETE_LABEL_HREF"
+    curl --silent --output /dev/null DELETE "$PR_DELETE_LABEL_HREF" \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer $TOKEN"
 }
 
 add_label() {
-    curl -X --output /dev/null POST "$PR_ISSUE_HREF/labels" \
+    PR_ADD_LABEL_HREF="$PR_ISSUE_HREF/labels"
+    echo "PR_ADD_LABEL_HREF: $PR_ADD_LABEL_HREF"
+    curl --silent --output /dev/null POST "$PR_ADD_LABEL_HREF/labels" \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer $TOKEN" \
     --data-binary "{ \"labels\": [\"$1\"] }"
