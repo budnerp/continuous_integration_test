@@ -13,12 +13,22 @@ echo "PR_SHA: $PR_SHA"
 echo "PR_ISSUE_HREF: $PR_ISSUE_HREF"
 
 remove_label() {
-	PR_DELETE_LABEL_HREF="$PR_ISSUE_HREF/labels/$(echo $1 | sed "s/\s/%20/g")"
+    PR_DELETE_LABEL_HREF="$PR_ISSUE_HREF/labels/$(echo $1 | sed "s/\s/%20/g")"
     echo "PR_DELETE_LABEL_HREF: $PR_DELETE_LABEL_HREF"
     curl --silent --output /dev/null DELETE "$PR_DELETE_LABEL_HREF" \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer $TOKEN"
 }
+
+replace_label() {
+    PR_REPLACE_LABEL_HREF="$PR_ISSUE_HREF/labels"
+    echo "PR_REPLACE_LABEL_HREF: $PR_REPLACE_LABEL_HREF"
+    curl --silent --output /dev/null PUT "$PR_REPLACE_LABEL_HREF" \
+    --header "Content-Type: application/json" \
+    --header "Authorization: Bearer $TOKEN" \
+    --data-binary "{ \"labels\": [\"$1\"] }"
+}
+
 
 add_label() {
     PR_ADD_LABEL_HREF="$PR_ISSUE_HREF/labels"
@@ -103,17 +113,19 @@ then
     echo "--- PHPCS end ---"
 
     if [ $exitCode -ne 0 ]; then
-	remove_label "ready for review"
+	#remove_label "ready for review"
 
 	echo "--- Mark pull request as Invalid"
-	add_label "invalid"
+	#add_label "invalid"
+	replace_label "invalid"
 
  	# send a message on Teams that PR needs Work
     else
-	remove_label "invalid"
+	#remove_label "invalid"
 	
 	echo "--- Mark pull request as Ready For Review"
-	add_label "ready for review"
+	#add_label "ready for review"
+	replace_label "ready for review"
     fi
 else
     echo 'No files for analysis this time'
