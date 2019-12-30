@@ -104,8 +104,9 @@ then
 
  	# send a message on Teams that PR needs Work
     else
-	echo "--- Mark pull request as Ready For Review"
 	remove_label "invalid"
+	
+	echo "--- Mark pull request as Ready For Review"
 	add_label "ready for review"
     fi
 else
