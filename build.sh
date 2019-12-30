@@ -13,7 +13,7 @@ echo "PR_SHA: $PR_SHA"
 echo "PR_ISSUE_HREF: $PR_ISSUE_HREF"
 
 remove_label() {
-    PR_DELETE_LABEL_HREF="$PR_ISSUE_HREF/labels/$1"
+	PR_DELETE_LABEL_HREF="$PR_ISSUE_HREF/labels/$(echo $1 | sed "s/\s/%20/g")"
     echo "PR_DELETE_LABEL_HREF: $PR_DELETE_LABEL_HREF"
     curl --silent --output /dev/null DELETE "$PR_DELETE_LABEL_HREF" \
     --header "Content-Type: application/json" \
